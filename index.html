@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app='clusterCalendar'> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title></title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+
+		<!--	Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+		<link rel="stylesheet" href="js/vendor/bootstrap-css/css/bootstrap.css">
+		<link rel='stylesheet' href='js/vendor/fullcalendar/fullcalendar.css' />
+		<link rel="stylesheet" href="css/styles.css">
+
+	</head>
+	<body ng-cloak>
+		<!--[if lt IE 7]>
+				<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+		<![endif]-->
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a class="brand" href="/">Is Cluster Available?</a>
+					<div class="nav-collapse collapse">
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="content-wrapper">	
+			<div class="container">
+
+				<div ng-controller="MainController" >
+					<div id="alertMessage" class="alert alert-block" ng-model="alertMessage" ng-hide="!showAlert">
+						 <button type="button" class="close" ng-click="showAlert = !showAlert">&times;</button>
+						 <pre>{{alertMessage}}</pre>
+					</div>
+					<div class="row" style="margin-bottom: 10px;">
+						<section class="pull-right">
+							<button class="btn btn-small" ng-click="showForm = !showForm" >Add Event <span class="icon-chevron-down" ng-hide="showForm"></span><span class="icon-chevron-up" ng-hide="!showForm"></span></button>
+						</section>
+					</div>
+					<div ng-hide="!showForm" style="margin-bottom: 10px;">
+						<h3>Please enter event details:</h3>
+						<form id="AddEvent">
+							<div class="row">
+								<div class="span4">
+									<label for="eventTitle">Event title:</label>
+									<input type="text" id="eventTitle" ng-model="event.title" />
+								</div>
+								<div class="span8">
+									<label for="eventDescription">Event description:</label>
+									<input type="text" id="eventDescription" style="width: 500px" ng-model="event.description" /> <!-- ng-model="event.description" -->
+								</div>
+							</div>
+							<div class="row">
+								<div class="span4">
+									<label for="startDateTime">Start Date/Time</label>
+									<input type="text" id="startDateTime" ng-model="event.start" />
+								</div>
+								<div class="span4">
+									<label for="endDateTime">End Date/Time</label>
+									<input type="text" id="endDateTime" ng-model="event.end" />
+								</div>								
+								<div class="span4">
+									<!--<span style="display: block;">&nbsp;</span>-->
+									<button class="btn btn-primary btn-large" style="margin-top: 10px;" ng-click="addFormEvent(clusterCalendar, event)" >Submit</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<div class="calendar row" ng-model="eventSources" calendar="clusterCalendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+
+					<div class="row">
+						<table id="eventTbl" class="table table-striped">
+							<tbody>
+								<tr>
+									<th>Event Title</th>
+									<th>Start Date</th>
+									<th>End Date</th>
+								</tr>
+
+								<tr ng-repeat="event in events | orderBy:'start_microtime' ">
+									<td>{{event.title}}</td>
+									<td>{{event.start | date:'medium' }}</td>
+									<td>{{event.end | date:'medium'}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+			</div><!-- /.container -->
+		</div>
+
+		<script src="js/vendor/jquery/dist/jquery.js"></script>
+		<script src="js/vendor/jquery-ui/ui/jquery-ui.js"></script>
+		<script src='js/vendor/fullcalendar/fullcalendar.js'></script>
+		<script src='js/vendor/fullcalendar/gcal.js'></script>
+
+		<script src="js/vendor/angular/angular.js"></script>
+		<script src="js/calendar.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/services/GoogleService.js"></script>
+		<script src="js/controllers/MainController.js"></script>
+		<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.9.0.js"></script>
+
+		<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+		<script src="js/vendor/bootstrap-css/js/bootstrap.js"></script>
+	</body>	
+</html>

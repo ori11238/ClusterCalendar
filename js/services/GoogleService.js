@@ -9,7 +9,7 @@ cCalApp.service('googleServiceData', function($http){
 		fetchEventsList: function(start,end,callback){
 			$http({
 				method: 'GET',
-				url: '/api/listEvents'
+				url: 'api/index.php/listEvents'
 			}).success(function(data, status){
 					callback(data);
 			}).error(function(data, status, headers, config){
@@ -19,7 +19,7 @@ cCalApp.service('googleServiceData', function($http){
 		createEvent: function(event, callback) {
 			$http({
 				method: 'POST',
-				url: '/api/createEvent',
+				url: 'api/index.php/createEvent',
 				data: $.param(event),
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'

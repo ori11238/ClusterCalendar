@@ -11,8 +11,8 @@ $calendarServiceObj = new Google_Service_Calendar($client);
 //@Todo take start/end dates
 $app->get('/listEvents', function() use ($client, $calendarServiceObj) {
 	//$now = date('c');
-	//$params = array('singleEvents' => 'true', 'orderBy' => 'startTime', 'timeMin' => $now);
-	$events = $calendarServiceObj->events->listEvents('cluster.calendar@gmail.com'/*, $params*/);
+	$params = array('singleEvents' => true/*, 'orderBy' => 'startTime', 'timeMin' => $now*/);
+	$events = $calendarServiceObj->events->listEvents('cluster.calendar@gmail.com', $params);
 
 	$fullCalendarEvents = array();
 	$i = 0;
